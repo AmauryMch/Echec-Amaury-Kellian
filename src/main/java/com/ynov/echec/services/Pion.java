@@ -1,6 +1,11 @@
 package com.ynov.echec.services;
 
-public class Pion extends Piece{
+import com.ynov.echec.models.Piece;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Pion extends Piece {
 
     public Pion(int x, int y) {
         super(x, y);
@@ -13,5 +18,30 @@ public class Pion extends Piece{
         } else {
             System.out.println("Déplacement invalide pour un pion.");
         }
+    }
+
+    public List<int[]> checkPossibilities(int positionX, int positionY) {
+        List<int[]> possibilities = new ArrayList<>();
+
+        // Vérification des coordonnées valides
+        if (!validInput(positionX, positionY)) {
+            return possibilities; // Retourne une liste vide si les coordonnées sont invalides
+        }
+
+        // le pion avance de un, une limite de 7 est posé pour al taille de l'échiquier
+        if (positionY + 1 <= 7) {
+            possibilities.add(new int[]{positionX, positionY + 1});
+        }
+
+        // le pion avance de deux, seulement depuis la position initiale (1)
+        if (positionY == 1 && positionY + 2 <= 7) {
+            possibilities.add(new int[]{positionX, positionY + 2});
+        }
+
+        return possibilities;
+    }
+
+    public boolean validInput(int x, int y) {
+        return x >= 0 && x <= 7 && y >= 0 && y <= 7;
     }
 }

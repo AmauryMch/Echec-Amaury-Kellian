@@ -34,7 +34,7 @@ public class Pion extends Piece {
         }
 
         // le pion avance de deux, seulement depuis la position initiale (1)
-        if (positionY == 1 && positionY + 2 <= 7) {
+        if (positionY == 1) {
             possibilities.add(new int[]{positionX, positionY + 2});
         }
 

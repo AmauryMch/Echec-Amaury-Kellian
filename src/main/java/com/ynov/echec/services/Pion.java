@@ -43,4 +43,24 @@ public class Pion extends Piece {
         return possibilities;
     }
 
+
+    public void deplacerFromTo(int origineX, int origineY, int destinationX, int destinationY) {
+        // Vérifie si l'origine correspond à la position actuelle
+        if (this.x != origineX || this.y != origineY) {
+            throw new IllegalArgumentException("The origin does not match the current position of the piece.");
+        }
+
+        // Récupère les possibilités depuis l'origine
+        List<int[]> possibilities = checkPossibilities(origineX, origineY);
+
+        // Vérifie si la destination est dans les possibilités
+        boolean isValidMove = possibilities.stream()
+                .anyMatch(pos -> pos[0] == destinationX && pos[1] == destinationY);
+
+        if (isValidMove) {
+            setPosition(destinationX, destinationY); // Met à jour la position
+        } else {
+            throw new IllegalArgumentException("The move is not valid for this piece.");
+        }
+    }
 }

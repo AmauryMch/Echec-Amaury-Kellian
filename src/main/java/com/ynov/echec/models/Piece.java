@@ -1,4 +1,4 @@
-package com.ynov.echec.services;
+package com.ynov.echec.models;
 
 public class Piece {
     protected int x; // Position en colonne (0-7)

@@ -2,6 +2,7 @@ package com.ynov.echec.services;
 
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.List;
 
@@ -102,5 +103,73 @@ public class PionTest {
         Pion pion = new Pion(0, -1);
         List<int[]> possibilities = pion.checkPossibilities(0, -1);
         assertTrue(possibilities.isEmpty());
+    }
+
+    // TEST POUR DEPLACER FROM TO
+
+    @Test
+    void deplacerFromToValidMove() {
+        Pion pion = new Pion(0, 1);
+        pion.deplacerFromTo(0, 1, 0, 2);
+        assertEquals(0, pion.getX());
+        assertEquals(2, pion.getY());
+    }
+
+    @Test
+    void deplacerFromToInvalidOrigin() {
+        Pion pion = new Pion(0, 1);
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> pion.deplacerFromTo(1, 1, 0, 2)
+        );
+        assertEquals("The origin does not match the current position of the piece.", exception.getMessage());
+    }
+
+    @Test
+    void deplacerFromToInvalidDestination() {
+        Pion pion = new Pion(0, 1);
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> pion.deplacerFromTo(0, 1, 1, 2)
+        );
+        assertEquals("The move is not valid for this piece.", exception.getMessage());
+    }
+
+    @Test
+    void deplacerFromToOutOfBoardDestination() {
+        Pion pion = new Pion(0, 1);
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> pion.deplacerFromTo(0, 1, 0, 10)
+        );
+        assertEquals("The move is not valid for this piece.", exception.getMessage());
+    }
+
+    @Test
+    void deplacerFromToSamePosition() {
+        Pion pion = new Pion(0, 1);
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> pion.deplacerFromTo(0, 1, 0, 1)
+        );
+        assertEquals("The move is not valid for this piece.", exception.getMessage());
+    }
+
+    @Test
+    void deplacerFromToWithMockedCheckPossibilities() {
+        Pion pion = Mockito.spy(new Pion(0, 1));
+
+        // Mock de la méthode checkPossibilities
+        // On Mock une position fictive et impossible pour tester le déplacement
+        // Si checkPossibilities valide le déplacement, alors le test réussira
+        List<int[]> mockedPossibilities = List.of(new int[]{0, 2}, new int[]{0, 3}, new int[]{0, 6});
+        Mockito.doReturn(mockedPossibilities).when(pion).checkPossibilities(0, 1);
+
+        // Appel de la méthode avec une destination valide
+        pion.deplacerFromTo(0, 1, 0, 6);
+
+        // Vérification de la position mise à jour
+        assertEquals(0, pion.getX());
+        assertEquals(6, pion.getY());
     }
 }

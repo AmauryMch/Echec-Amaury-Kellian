@@ -41,7 +41,19 @@ class CavalierTest {
         Cavalier cavalier = new Cavalier(0, 0);
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> cavalier.deplacer(3, 1));
+                () -> cavalier.deplacer(2, 2));
+
+        assertEquals("Invalid move for a knight.", exception.getMessage());
+        assertEquals(0, cavalier.getX());
+        assertEquals(0, cavalier.getY());
+    }
+
+    @Test
+    void secondOtherInvalidMoveDoesNotUpdatePosition() {
+        Cavalier cavalier = new Cavalier(0, 0);
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> cavalier.deplacer(1, 3));
 
         assertEquals("Invalid move for a knight.", exception.getMessage());
         assertEquals(0, cavalier.getX());

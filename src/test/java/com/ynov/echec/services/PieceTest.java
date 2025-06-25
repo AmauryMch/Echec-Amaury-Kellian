@@ -1,43 +1,35 @@
 package com.ynov.echec.services;
 
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
+import com.ynov.echec.models.Piece;
+import org.junit.jupiter.api.Test;
 
-public class PieceTest {
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+
+class PieceTest {
 
     @Test
-    public void deplacerValidOneStepForward() {
-        Pion pion = new Pion(0, 1);
-        pion.deplacer(0, 2);
-        assertEquals(2, pion.getY());
+    void validInputReturnsTrueForValidCoordinates() {
+        Piece piece = new Piece(0, 0);
+        assertTrue(piece.validInput(4, 4));
+        assertTrue(piece.validInput(7, 7));
+        assertTrue(piece.validInput(0, 0));
     }
 
     @Test
-    public void deplacerValidTwoStepsForwardFromInitialPosition() {
-        Pion pion = new Pion(0, 1);
-        pion.deplacer(0, 3);
-        assertEquals(3, pion.getY());
+    void validInputReturnsFalseForNegativeCoordinates() {
+        Piece piece = new Piece(0, 0);
+        assertFalse(piece.validInput(-1, 4));
+        assertFalse(piece.validInput(4, -1));
+        assertFalse(piece.validInput(-1, -1));
     }
 
     @Test
-    public void deplacerInvalidTwoStepsForwardNotFromInitialPosition() {
-        Pion pion = new Pion(0, 2);
-        pion.deplacer(0, 4);
-        assertEquals(2, pion.getY());
-    }
-
-    @Test
-    public void deplacerInvalidSidewaysMove() {
-        Pion pion = new Pion(0, 1);
-        pion.deplacer(1, 2);
-        assertEquals(1, pion.getY());
-        assertEquals(0, pion.getX());
-    }
-
-    @Test
-    public void deplacerInvalidBackwardMove() {
-        Pion pion = new Pion(0, 2);
-        pion.deplacer(0, 1);
-        assertEquals(2, pion.getY());
+    void validInputReturnsFalseForCoordinatesOutOfBounds() {
+        Piece piece = new Piece(0, 0);
+        assertFalse(piece.validInput(8, 4));
+        assertFalse(piece.validInput(4, 8));
+        assertFalse(piece.validInput(8, 8));
     }
 }

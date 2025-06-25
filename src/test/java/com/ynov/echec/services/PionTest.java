@@ -10,6 +10,60 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PionTest {
 
     @Test
+    void deplacerValidOneStepForward() {
+        Pion pion = new Pion(0, 1);
+        pion.deplacer(0, 2);
+        assertEquals(2, pion.getY());
+    }
+
+    @Test
+    void deplacerValidTwoStepsForwardFromInitialPosition() {
+        Pion pion = new Pion(0, 1);
+        pion.deplacer(0, 3);
+        assertEquals(3, pion.getY());
+    }
+
+    @Test
+    void deplacerInvalidTwoStepsForwardNotFromInitialPosition() {
+        Pion pion = new Pion(0, 2);
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> pion.deplacer(0, 4)
+        );
+        assertEquals("Invalid move for a pawn.", exception.getMessage());
+    }
+
+    @Test
+    void deplacerInvalidSidewaysMove() {
+        Pion pion = new Pion(0, 1);
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> pion.deplacer(1, 2)
+        );
+        assertEquals("Invalid move for a pawn.", exception.getMessage());
+    }
+
+    @Test
+    void deplacerInvalidBackwardMove() {
+        Pion pion = new Pion(0, 2);
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> pion.deplacer(0, 1)
+        );
+        assertEquals("Invalid move for a pawn.", exception.getMessage());
+    }
+
+    @Test
+    void deplacerInvalidMoveToSamePosition() {
+        Pion pion = new Pion(0, 1);
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> pion.deplacer(0, 1)
+        );
+        assertEquals("Invalid move for a pawn.", exception.getMessage());
+    }
+
+    @Test
     public void checkPossibilitiesFromInitialPosition() {
         Pion pion = new Pion(0, 1);
         List<int[]> possibilities = pion.checkPossibilities(0, 1);

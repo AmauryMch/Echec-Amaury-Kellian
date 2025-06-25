@@ -35,7 +35,7 @@ public class FouTest {
         List<int[]> possibilities = fou.checkPossibilities(0, 4);
         assertEquals(7, possibilities.size());
         assertTrue(containsArray(possibilities, new int[]{1, 3}));
-        assertTrue(containsArray(possibilities, new int[]{7, 11}));
+        assertTrue(containsArray(possibilities, new int[]{3, 7}));
     }
 
     @Test

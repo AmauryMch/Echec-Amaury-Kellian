@@ -16,9 +16,8 @@ public class Cavalier extends Piece {
         int dy = Math.abs(newY - y);
         if ((dx == 2 && dy == 1) || (dx == 1 && dy == 2)) {
             setPosition(newX, newY);
-            System.out.println("Déplacement valide: (" + x + ", " + y + ")");
         } else {
-            System.out.println("Déplacement invalide pour un cavalier.");
+            throw new IllegalArgumentException("Invalid move for a knight.");
         }
     }
 

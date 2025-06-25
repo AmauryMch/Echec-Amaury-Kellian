@@ -11,11 +11,28 @@ public class Tour extends Piece {
         super(x, y);
     }
 
+    public void deplacer(int nouvelleX, int nouvelleY) {
+        if (!validInput(nouvelleX, nouvelleY)) {
+            throw new IllegalArgumentException("Target position is out of the board.");
+        }
+
+        if (nouvelleX == this.x && nouvelleY == this.y) {
+            throw new IllegalArgumentException("Cannot move to the same position.");
+        }
+
+        // Vérifie si le déplacement est horizontal ou vertical
+        if (nouvelleX == this.x || nouvelleY == this.y) {
+            setPosition(nouvelleX, nouvelleY);
+        } else {
+            throw new IllegalArgumentException("Invalid move for a rook.");
+        }
+    }
+
     public List<int[]> checkPossibilities(int x, int y) {
         List<int[]> possibilities = new ArrayList<>();
 
         // La tour n'est pas sur l'échiquier
-        if (x < 0 || x > 7 || y < 0 || y > 7) {
+        if (!validInput(x, y)) {
             return possibilities;
         }
 

@@ -64,6 +64,16 @@ public class PionTest {
     }
 
     @Test
+    void deplacerInvalidMoveOutOfBoard() {
+        Pion pion = new Pion(0, 1);
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> pion.deplacer(0, 10)
+        );
+        assertEquals("Target position is out of the board.", exception.getMessage());
+    }
+
+    @Test
     public void checkPossibilitiesFromInitialPosition() {
         Pion pion = new Pion(0, 1);
         List<int[]> possibilities = pion.checkPossibilities(0, 1);

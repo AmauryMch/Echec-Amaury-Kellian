@@ -12,6 +12,9 @@ public class Pion extends Piece {
     }
 
     public void deplacer(int nouvelleX, int nouvelleY) {
+        if (!validInput(nouvelleX, nouvelleY)) {
+            throw new IllegalArgumentException("Target position is out of the board.");
+        }
         if (nouvelleX == x && (nouvelleY == y + 1 || (y == 1 && nouvelleY == y + 2))) {
             setPosition(nouvelleX, nouvelleY);
         } else {

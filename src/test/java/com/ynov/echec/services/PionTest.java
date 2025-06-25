@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.doReturn;
 
 public class PionTest {
 
@@ -163,7 +164,7 @@ public class PionTest {
         // On Mock une position fictive et impossible pour tester le déplacement
         // Si checkPossibilities valide le déplacement, alors le test réussira
         List<int[]> mockedPossibilities = List.of(new int[]{0, 2}, new int[]{0, 3}, new int[]{0, 6});
-        Mockito.doReturn(mockedPossibilities).when(pion).checkPossibilities(0, 1);
+        doReturn(mockedPossibilities).when(pion).checkPossibilities(0, 1);
 
         // Appel de la méthode avec une destination valide
         pion.deplacerFromTo(0, 1, 0, 6);
@@ -171,5 +172,18 @@ public class PionTest {
         // Vérification de la position mise à jour
         assertEquals(0, pion.getX());
         assertEquals(6, pion.getY());
+        Mockito.verify(pion, Mockito.times(1)).checkPossibilities(0, 1);
+    }
+
+    @Test
+    void deplacerFromToThrowException() {
+        Pion pion = new Pion(0, 1);
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> pion.deplacerFromTo(0, 2, 0, 6)
+        );
+
+        assertEquals("The origin does not match the current position of the piece.", exception.getMessage());
     }
 }

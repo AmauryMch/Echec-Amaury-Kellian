@@ -21,4 +21,8 @@ public class Piece {
         this.x = x;
         this.y = y;
     }
+
+    public boolean validInput(int x, int y) {
+        return x >= 0 && x <= 7 && y >= 0 && y <= 7;
+    }
 }

@@ -11,7 +11,7 @@ public class Pion extends Piece {
         super(x, y);
     }
 
-    public void deplacer(int nouvelleX, int nouvelleY) {
+    public void move(int nouvelleX, int nouvelleY) {
         if (!validInput(nouvelleX, nouvelleY)) {
             throw new IllegalArgumentException("Target position is out of the board.");
         }
@@ -44,7 +44,7 @@ public class Pion extends Piece {
     }
 
 
-    public void deplacerFromTo(int origineX, int origineY, int destinationX, int destinationY) {
+    public void moveFromTo(int origineX, int origineY, int destinationX, int destinationY) {
         // Vérifie si l'origine correspond à la position actuelle
         if (this.x != origineX || this.y != origineY) {
             throw new IllegalArgumentException("The origin does not match the current position of the piece.");

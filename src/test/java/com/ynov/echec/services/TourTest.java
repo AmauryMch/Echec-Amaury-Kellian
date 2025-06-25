@@ -9,39 +9,39 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TourTest {
 
     @Test
-    public void deplacerToValidHorizontalPosition() {
+    public void moveToValidHorizontalPosition() {
         Tour tour = new Tour(4, 4);
-        tour.deplacer(4, 7);
+        tour.move(4, 7);
         assertEquals(4, tour.getX());
         assertEquals(7, tour.getY());
     }
 
     @Test
-    public void deplacerToValidVerticalPosition() {
+    public void moveToValidVerticalPosition() {
         Tour tour = new Tour(4, 4);
-        tour.deplacer(7, 4);
+        tour.move(7, 4);
         assertEquals(7, tour.getX());
         assertEquals(4, tour.getY());
     }
 
     @Test
-    public void deplacerToInvalidDiagonalPosition() {
+    public void moveToInvalidDiagonalPosition() {
         Tour tour = new Tour(4, 4);
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> tour.deplacer(5, 5));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> tour.move(5, 5));
         assertEquals("Invalid move for a rook.", exception.getMessage());
     }
 
     @Test
-    public void deplacerToOutOfBoardPosition() {
+    public void moveToOutOfBoardPosition() {
         Tour tour = new Tour(4, 4);
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> tour.deplacer(8, 4));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> tour.move(8, 4));
         assertEquals("Target position is out of the board.", exception.getMessage());
     }
 
     @Test
-    public void deplacerToSamePosition() {
+    public void moveToSamePosition() {
         Tour tour = new Tour(4, 4);
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> tour.deplacer(4, 4));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> tour.move(4, 4));
         assertEquals("Cannot move to the same position.", exception.getMessage());
     }
 

@@ -11,7 +11,7 @@ public class Cavalier extends Piece {
         super(x, y);
     }
 
-    public void deplacer(int newX, int newY) {
+    public void move(int newX, int newY) {
         int dx = Math.abs(newX - x);
         int dy = Math.abs(newY - y);
         if ((dx == 2 && dy == 1) || (dx == 1 && dy == 2)) {

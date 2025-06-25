@@ -12,67 +12,67 @@ import static org.mockito.Mockito.doReturn;
 public class PionTest {
 
     @Test
-    void deplacerValidOneStepForward() {
+    void moveValidOneStepForward() {
         Pion pion = new Pion(0, 1);
-        pion.deplacer(0, 2);
+        pion.move(0, 2);
         assertEquals(0, pion.getX());
         assertEquals(2, pion.getY());
     }
 
     @Test
-    void deplacerValidTwoStepsForwardFromInitialPosition() {
+    void moveValidTwoStepsForwardFromInitialPosition() {
         Pion pion = new Pion(0, 1);
-        pion.deplacer(0, 3);
+        pion.move(0, 3);
         assertEquals(0, pion.getX());
         assertEquals(3, pion.getY());
     }
 
     @Test
-    void deplacerInvalidTwoStepsForwardNotFromInitialPosition() {
+    void moveInvalidTwoStepsForwardNotFromInitialPosition() {
         Pion pion = new Pion(0, 2);
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> pion.deplacer(0, 4)
+                () -> pion.move(0, 4)
         );
         assertEquals("Invalid move for a pawn.", exception.getMessage());
     }
 
     @Test
-    void deplacerInvalidSidewaysMove() {
+    void moveInvalidSidewaysMove() {
         Pion pion = new Pion(0, 1);
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> pion.deplacer(1, 2)
+                () -> pion.move(1, 2)
         );
         assertEquals("Invalid move for a pawn.", exception.getMessage());
     }
 
     @Test
-    void deplacerInvalidBackwardMove() {
+    void moveInvalidBackwardMove() {
         Pion pion = new Pion(0, 2);
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> pion.deplacer(0, 1)
+                () -> pion.move(0, 1)
         );
         assertEquals("Invalid move for a pawn.", exception.getMessage());
     }
 
     @Test
-    void deplacerInvalidMoveToSamePosition() {
+    void moveInvalidMoveToSamePosition() {
         Pion pion = new Pion(0, 1);
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> pion.deplacer(0, 1)
+                () -> pion.move(0, 1)
         );
         assertEquals("Invalid move for a pawn.", exception.getMessage());
     }
 
     @Test
-    void deplacerInvalidMoveOutOfBoard() {
+    void moveInvalidMoveOutOfBoard() {
         Pion pion = new Pion(0, 1);
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> pion.deplacer(0, 10)
+                () -> pion.move(0, 10)
         );
         assertEquals("Target position is out of the board.", exception.getMessage());
     }
@@ -108,58 +108,58 @@ public class PionTest {
         assertTrue(possibilities.isEmpty());
     }
 
-    // TEST POUR DEPLACER FROM TO
+    // TEST POUR move FROM TO
 
     @Test
-    void deplacerFromToValidMove() {
+    void moveFromToValidMove() {
         Pion pion = new Pion(0, 1);
-        pion.deplacerFromTo(0, 1, 0, 2);
+        pion.moveFromTo(0, 1, 0, 2);
         assertEquals(0, pion.getX());
         assertEquals(2, pion.getY());
     }
 
     @Test
-    void deplacerFromToInvalidOrigin() {
+    void moveFromToInvalidOrigin() {
         Pion pion = new Pion(0, 1);
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> pion.deplacerFromTo(1, 1, 0, 2)
+                () -> pion.moveFromTo(1, 1, 0, 2)
         );
         assertEquals("The origin does not match the current position of the piece.", exception.getMessage());
     }
 
     @Test
-    void deplacerFromToInvalidDestination() {
+    void moveFromToInvalidDestination() {
         Pion pion = new Pion(0, 1);
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> pion.deplacerFromTo(0, 1, 1, 2)
+                () -> pion.moveFromTo(0, 1, 1, 2)
         );
         assertEquals("The move is not valid for this piece.", exception.getMessage());
     }
 
     @Test
-    void deplacerFromToOutOfBoardDestination() {
+    void moveFromToOutOfBoardDestination() {
         Pion pion = new Pion(0, 1);
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> pion.deplacerFromTo(0, 1, 0, 10)
+                () -> pion.moveFromTo(0, 1, 0, 10)
         );
         assertEquals("The move is not valid for this piece.", exception.getMessage());
     }
 
     @Test
-    void deplacerFromToSamePosition() {
+    void moveFromToSamePosition() {
         Pion pion = new Pion(0, 1);
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> pion.deplacerFromTo(0, 1, 0, 1)
+                () -> pion.moveFromTo(0, 1, 0, 1)
         );
         assertEquals("The move is not valid for this piece.", exception.getMessage());
     }
 
     @Test
-    void deplacerFromToWithMockedCheckPossibilities() {
+    void moveFromToWithMockedCheckPossibilities() {
         Pion pion = Mockito.spy(new Pion(0, 1));
 
         // Mock de la méthode checkPossibilities
@@ -169,7 +169,7 @@ public class PionTest {
         doReturn(mockedPossibilities).when(pion).checkPossibilities(0, 1);
 
         // Appel de la méthode avec une destination valide
-        pion.deplacerFromTo(0, 1, 0, 6);
+        pion.moveFromTo(0, 1, 0, 6);
 
         // Vérification de la position mise à jour
         assertEquals(0, pion.getX());
@@ -178,12 +178,12 @@ public class PionTest {
     }
 
     @Test
-    void deplacerFromToThrowException() {
+    void moveFromToThrowException() {
         Pion pion = new Pion(0, 1);
 
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> pion.deplacerFromTo(0, 2, 0, 6)
+                () -> pion.moveFromTo(0, 2, 0, 6)
         );
 
         assertEquals("The origin does not match the current position of the piece.", exception.getMessage());

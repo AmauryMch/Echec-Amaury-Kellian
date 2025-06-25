@@ -15,6 +15,7 @@ public class PionTest {
     void deplacerValidOneStepForward() {
         Pion pion = new Pion(0, 1);
         pion.deplacer(0, 2);
+        assertEquals(0, pion.getX());
         assertEquals(2, pion.getY());
     }
 
@@ -22,6 +23,7 @@ public class PionTest {
     void deplacerValidTwoStepsForwardFromInitialPosition() {
         Pion pion = new Pion(0, 1);
         pion.deplacer(0, 3);
+        assertEquals(0, pion.getX());
         assertEquals(3, pion.getY());
     }
 

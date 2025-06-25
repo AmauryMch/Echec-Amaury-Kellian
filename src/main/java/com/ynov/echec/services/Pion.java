@@ -41,7 +41,4 @@ public class Pion extends Piece {
         return possibilities;
     }
 
-    public boolean validInput(int x, int y) {
-        return x >= 0 && x <= 7 && y >= 0 && y <= 7;
-    }
 }
